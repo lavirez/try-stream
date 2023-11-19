@@ -29,8 +29,13 @@ func (user *User) addUserToStream(client *stream.Client) {
 	fmt.Println(resp)
 }
 
+func (user *User) generateStreamToken(client *stream.Client) { 
+
+}
+
 func decodeJWTToken(client *stream.Client) {
 }
+
 
 func (user *User) generateJWTToknen(client *stream.Client) {
 }
