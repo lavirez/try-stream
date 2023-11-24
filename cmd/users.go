@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/GetStream/stream-go2/v8"
 )
@@ -14,7 +13,15 @@ type User struct {
 	Token    *string `json:"token"`
 }
 
-func (user *User) addUserToStream(client *stream.Client) {
+func (user *User) retrieveStreamUser(client *stream.Client) *stream.UserResponse { 
+    resp, err := client.Users().Get(context.TODO(), user.ID)
+    if err != nil { 
+        return nil
+    }
+    return resp
+}
+
+func (user *User) addUserToStream(client *stream.Client) *stream.UserResponse {
 	userData := stream.User{
 		ID: user.ID,
 		Data: map[string]any{
@@ -24,9 +31,17 @@ func (user *User) addUserToStream(client *stream.Client) {
 	}
 	resp, err := client.Users().Add(context.TODO(), userData, false)
 	if err != nil {
-		return
+		return nil
 	}
-	fmt.Println(resp)
+	return resp
+}
+
+func (user *User) getStreamToken(client *stream.Client) *string { 
+    userToken, err := client.CreateUserToken(user.ID)
+    if err != nil { 
+        return nil
+    }
+    return &userToken
 }
 
 func (user *User) generateStreamToken(client *stream.Client) { 
@@ -40,12 +55,3 @@ func decodeJWTToken(client *stream.Client) {
 func (user *User) generateJWTToknen(client *stream.Client) {
 }
 
-func main() {
-	u := User{
-		ID:       "92903hfj2030asd-asj393ds-a8490asdn-as24jad",
-		Email:    "info@alire.me",
-		UserName: "alireza",
-		Token:    nil,
-	}
-	u.addUserToStream()
-}
