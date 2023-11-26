@@ -1,4 +1,4 @@
-package steamclient
+package streamclient
 
 import (
 	"fmt"
@@ -10,16 +10,16 @@ import (
 
 func SetUp() *stream.Client {
 	if err := godotenv.Load(); err != nil {
-        panic("Steam has no env")
+		panic("Steam has no env")
 	}
 	API_KEY := os.Getenv("STREAM_API_KEY")
 	SECRET_KEY := os.Getenv("STREAM_SECRET_KEY")
-    fmt.Println(API_KEY)
-    fmt.Println(SECRET_KEY)
+	fmt.Println(API_KEY)
+	fmt.Println(SECRET_KEY)
 
 	client, err := stream.New(API_KEY, SECRET_KEY)
 	if err != nil {
-        panic("Steam is not connected")
+		panic("Steam is not connected")
 	}
 	return client
 }
