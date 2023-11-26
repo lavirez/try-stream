@@ -2,6 +2,7 @@ package activities
 
 import (
 	"context"
+    "encoding/json"
 
 	"github.com/GetStream/stream-go2/v8"
 )
@@ -13,10 +14,11 @@ type Post struct{
     Content string `json:"content"`
 }
 
-func (post *Post) CreateStreamPost(client *stream.Client, feed *stream.FlatFeed) *stream.AddActivityResponse { 
+func (post *Post) CreateStreamPost(client *stream.Client, feed *stream.FlatFeed) []byte { 
     streamPost := stream.Activity { 
         Actor: post.Owner,
         Verb: "post",
+        Object: "THis is the Object",
         ForeignID: post.ID,
     }
 
@@ -24,5 +26,9 @@ func (post *Post) CreateStreamPost(client *stream.Client, feed *stream.FlatFeed)
     if err != nil { 
         return nil
     }
-    return response
+    marshalled_response, err := json.Marshal(response)
+    if err != nil { 
+        return nil
+    }
+    return marshalled_response
 }

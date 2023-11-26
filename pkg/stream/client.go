@@ -1,4 +1,4 @@
-package streamclient
+package steamclient
 
 import (
 	"fmt"

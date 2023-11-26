@@ -13,5 +13,5 @@ func main() {
         })
     })
     r.POST("/post", CreatePostHandler)
-    r.Run()
+    r.Run(":8000")
 }

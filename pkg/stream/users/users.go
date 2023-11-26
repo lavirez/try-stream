@@ -1,4 +1,4 @@
-package main
+package users
 
 import (
 	"context"
@@ -44,13 +44,8 @@ func (user *User) getStreamToken(client *stream.Client) *string {
     return &userToken
 }
 
-func (user *User) generateStreamToken(client *stream.Client) { 
-
-}
-
 func decodeJWTToken(client *stream.Client) {
 }
-
 
 func (user *User) generateJWTToknen(client *stream.Client) {
 }

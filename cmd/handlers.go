@@ -5,13 +5,17 @@ import (
 
 	streamclient "github.com/alire-alavi/try-stream/internal/stream_client"
 	// "github.com/GetStream/stream-go2/v8"
-	"github.com/alire-alavi/try-stream/cmd/activities"
+	"github.com/alire-alavi/try-stream/pkg/stream/activities"
 	"github.com/gin-gonic/gin"
 )
 
 type CreatePostInput struct { 
     ID      string `json:"id"`
     Content string `json:"content"`
+}
+
+type GetPostQuery struct {
+	ID   string `uri:"id" binding:"required,uuid"`
 }
 
 
@@ -34,6 +38,10 @@ func CreatePostHandler(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-    response := post.CreateStreamPost(client, feed)
-    c.JSON(http.StatusOK, gin.H{"data": response})
+    bResponse := post.CreateStreamPost(client, feed)
+    println(string(bResponse))
+    c.JSON(http.StatusOK, gin.H{"data": string(bResponse)})
+}
+
+func GetPost(c *gin.Context) { 
 }
